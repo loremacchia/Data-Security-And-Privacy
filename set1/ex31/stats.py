@@ -1,6 +1,5 @@
 import math
 
-string = "abcdefghijklmnopqrstuvwxyz"
 wordSet = []
 ngrams = {}
 f = open("mobydick.txt", "r")
