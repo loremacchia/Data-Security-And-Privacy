@@ -21,7 +21,7 @@ def encryptHill(pt, k):
     return ct
 
 # Funzione per decifrare un ciphertext ct con la chiave k usando l'algoritmo di Hill
-# La decifratura consiste nel prodotto scalare fra l0inversa della matrice della chiave k e ct modulo lenAlphabet
+# La decifratura consiste nel prodotto scalare fra l'inversa della matrice della chiave k e ct modulo lenAlphabet
 # La funzione in questo caso permette di prendere in ingresso anche k1, l'inversa della matrice della chiave k
 def decryptHill(ct, k, k1 = None):
     if(k1 is decryptHill.__defaults__[0]):
