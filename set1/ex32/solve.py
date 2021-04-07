@@ -49,8 +49,8 @@ def attackHill(ptBlocks, ctBlocks):
         i += 1
     if not i < len:
         return None
-
     ptInv = np.array(Matrix(pt).inv_mod(lenAlphabet))
+    
     k = np.dot(ptInv,ct)%lenAlphabet
     return k
 
@@ -66,7 +66,8 @@ print(k)
 
 # Aggiungo del padding al testo in modo che la lunghezza sia multipla di m
 while(len(ptText) % m != 0):
-    ptText+="x"
+    ptText+="a"
+print(ptText)
 len = len(ptText)//m 
 
 # Divido il testo in blocchi da m caratteri poi convertiti ad interi minori di 26 
@@ -81,6 +82,12 @@ ctBlocks = np.zeros(shape=(len,m), dtype = np.int32)
 for i in range(len):
     ctBlocks[i] = encryptHill(ptBlocks[i], k)
 print(ctBlocks)
+# Stampo la cifratura
+ctFoundTxt = ""
+for i in range(len):
+    for j in range(m):
+        ctFoundTxt += chr(ctBlocks[i][j]+97)
+print(ctFoundTxt)
 
 # Decifro tutti i blocchi di ciphertext con la matrice k invertita (k1)
 k1 = np.array(Matrix(k).inv_mod(lenAlphabet))

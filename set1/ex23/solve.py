@@ -26,7 +26,7 @@ while i+3 <= len(ct):
         if(len(ngramsAppearances[gram]) == 0):
             ngramsAppearances.pop(gram)
     i += 1
-# print(ngramsAppearances)
+print(ngramsAppearances)
 
 # Analizzo quali sono i fattori che compaiono più volte nelle distanze fra trigrammi per poi testare queste come lunghezze possibili della chiave
 factors = {}
@@ -46,11 +46,10 @@ for i in range(2,30):
         okFactors[i] = factors[i]
     else:
         okFactors[i] = 0
-print(okFactors) #TODO fare il grafico
+print(okFactors) 
 highestVal = sorted(okFactors, key=okFactors.get, reverse=True)
 for v in highestVal:
     print(v, okFactors[v])
-
 
 # Scelgo manualmente il valore corretto della chiave, 15, ed inizio il vero e proprio attacco
 m = 15
@@ -72,12 +71,12 @@ for i in range(m):
     coincIndex[i] = 0
     for j in freq:
         coincIndex[i] += freq[j]*(freq[j]-1)/(len(txt[i])*(len(txt[i])-1))
-# print(coincIndex)
 
 # Viene costruita la chiave carattere per carattere: per ogni riga della matrice del testo estraggo la distribuzione dei caratteri e la confronto con 
 # la distribuzione della lingua inglese shiftandola da 1 a 25 volte. Il numero di shift fatti corrisponde al valore numerico della lettera della chiave.
 # Quindi scelgo la distribuzione che fra queste rende massimo il prodotto scalare con la distribuzione della lingua inglese.
 key = []
+scalProds = []
 for i in range(m):
     distr = {ord(j)-97:txt[i].count(j)/len(txt[i]) for j in txt[i]}
     scalarProds = []
@@ -93,7 +92,9 @@ for i in range(m):
             scal += newDistr[j]*engFreq[j]
         scalarProds.append(scal)
     key.append(chr(scalarProds.index(max(scalarProds))+97))
+    scalProds.append(max(scalarProds))
 print(key)
+print(scalProds)
 
 # Infine stampo il plaintext ottenuto dalla decifratura del ciphertext con la chiave ottenuta
 pt = ""
